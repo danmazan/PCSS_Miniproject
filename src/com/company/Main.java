@@ -7,5 +7,6 @@ public class Main {
         Dice dice = new Dice();
         //System.out.println();
         Player p1 = new Player("Daniel");
+        System.out.println(dice.roll);
     }
 }
