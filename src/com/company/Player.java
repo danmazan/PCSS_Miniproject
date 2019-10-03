@@ -3,10 +3,10 @@ package com.company;
 public class Player {
 
     public String name;
+    boolean viborg = false;
 
     public Player(String name){
-        boolean viborg = false;
-        name = this.name;
+        this.name = name;
     }
 
     public void estimate(int amount, int number){
