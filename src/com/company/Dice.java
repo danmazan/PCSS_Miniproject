@@ -3,10 +3,12 @@ import java.util.Random;
 import static jdk.nashorn.internal.objects.NativeMath.random;
 
 public class Dice {
-    Random random = new Random();
+
+    public Dice(){
+    };
 
     public void roll (){
-        random(6);
+       double roll = (Math.random() * ((6 - 1) + 1)) + 1;
     }
 
 }
