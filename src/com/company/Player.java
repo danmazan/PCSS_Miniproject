@@ -2,9 +2,13 @@ package com.company;
 
 public class Player {
 
-    public Player(){
+    public String name;
+
+    public Player(String name){
         boolean viborg = false;
+        name = this.name;
     }
+
     public void estimate(int amount, int number){
 
     }
@@ -13,11 +17,11 @@ public class Player {
 
     }
 
-    public void lift(){
+    public void lift(){ //related to dice
 
     }
 
-    public void looseDie(){
+    public void looseDie(){ //related to dice
 
     }
 
