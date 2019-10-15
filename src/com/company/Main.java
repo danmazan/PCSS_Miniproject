@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) {
 	// write your code here
         Dice dice = new Dice();
-        //System.out.println();
-        System.out.println(dice.value);
-        dice.roll();
-        System.out.println(dice.value);
+
+        Player player = new Player("Dan");
+        player.shuffle();
+        player.printDice();
     }
 }

@@ -1,4 +1,5 @@
 package com.company;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -6,13 +7,27 @@ public class Player extends Dice {
     Scanner keyboard = new Scanner(System.in);
     public String name;
     boolean viborg = false;
-    Dice[] myDice = new Dice[3];
+    ArrayList<Dice> myDice = new ArrayList<Dice>();
 
     //constructor
     public Player(String name){
         this.name = name;
-        for (int i = 0; i<=myDice.length; i++){
-            myDice[i].roll();
+        myDice.add(new Dice());
+        myDice.add(new Dice());
+        myDice.add(new Dice());
+        myDice.add(new Dice());
+
+    }
+
+    public void shuffle(){
+        for (int i=0; i<myDice.size(); i++){
+            myDice.get(i).roll();
+        }
+    }
+
+    public void printDice(){
+        for (int i=0; i<myDice.size(); i++){
+            System.out.println(myDice.get(i).value);
         }
     }
 
@@ -26,11 +41,17 @@ public class Player extends Dice {
 
     }
 
-    public void lift(){ //related to dice
-
+    public void lift(){
+    /*
+    count all relevant dice
+    print all dice as:
+    "Player1: 2, 6, 5, 4"
+    "Player2: 3,3,6,5"
+    ...
+     */
     }
 
-    public void looseDie(){ //related to dice
+    public void looseDie(){
 
     }
 
