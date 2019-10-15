@@ -52,7 +52,7 @@ public class Player extends Dice {
     }
 
     public void looseDie(){
-
+    myDice.remove(myDice.size()-1);
     }
 
 }
