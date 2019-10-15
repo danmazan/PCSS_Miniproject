@@ -6,7 +6,8 @@ public class Main {
 	// write your code here
         Dice dice = new Dice();
         //System.out.println();
-        Player p1 = new Player("Daniel");
-        System.out.println(dice.roll);
+        System.out.println(dice.value);
+        dice.roll();
+        System.out.println(dice.value);
     }
 }

@@ -2,8 +2,12 @@ package com.company;
 
 public class Dice {
 
-    public Dice(){
-    }
+    public int value;
 
-    public int roll = (int)(Math.random() * ((6 - 1) + 1)) + 1;
+    public Dice(){
+    value = 0;
+    }
+    public void roll(){
+        value = (int) (Math.random() * ((6 - 1) + 1)) + 1;
+    }
 }
