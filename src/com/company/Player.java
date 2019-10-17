@@ -33,20 +33,21 @@ public class Player extends Dice {
         System.out.println(" ");
     }
 
+    //if increase function is not okay with previous player (server stuff)
+    //then call this function again
     public void increase(){
         System.out.println("Enter amount");
         betAmount = keyboard.nextInt();
-        System.out.println("Enter number");
-        //try catch statement here(number cannot be higher than 6)
-        betNumber  = keyboard.nextInt();
-
-
+        while (betNumber > 6 || betNumber<2){
+            System.out.println("Enter number between 2 and 6 including these numbers");
+            betNumber  = keyboard.nextInt();
+        }
     }
+
 
     public void lift(){
     /*
-    count all relevant dice
-    print all dice as:
+    count all relevant dice (count 6s eg0)rint all dice as:
     "Player1: 2, 6, 5, 4"
     "Player2: 3,3,6,5"
     ...
