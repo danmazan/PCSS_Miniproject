@@ -14,6 +14,7 @@ public class Main {
         player.printDice();
         System.out.println("now player loose a die");
         player.looseDie();
+        player.shuffle();
         System.out.println("printing 3 dice values");
         player.printDice();
 

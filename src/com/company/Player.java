@@ -26,9 +26,9 @@ public class Player extends Dice {
     }
 
     public void printDice(){
-        for (int i=0; i<myDice.size(); i++){
-            System.out.println(myDice.get(i).value);
-        }
+        System.out.println("Your dice: ");
+        myDice.forEach( (i) -> System.out.print(i.value + ", "));
+        System.out.println(" ");
     }
 
     public void increase(int amount, int number){
