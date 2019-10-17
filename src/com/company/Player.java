@@ -8,6 +8,8 @@ public class Player extends Dice {
     public String name;
     boolean viborg = false;
     ArrayList<Dice> myDice = new ArrayList<Dice>();
+    int betAmount = 0;
+    int betNumber = 0;
 
     //constructor
     public Player(String name){
@@ -31,12 +33,12 @@ public class Player extends Dice {
         System.out.println(" ");
     }
 
-    public void increase(int amount, int number){
+    public void increase(){
         System.out.println("Enter amount");
-        amount = keyboard.nextInt();
+        betAmount = keyboard.nextInt();
         System.out.println("Enter number");
         //try catch statement here(number cannot be higher than 6)
-        number = keyboard.nextInt();
+        betNumber  = keyboard.nextInt();
 
 
     }

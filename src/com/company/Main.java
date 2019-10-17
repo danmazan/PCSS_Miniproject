@@ -18,6 +18,8 @@ public class Main {
         System.out.println("printing 3 dice values");
         player.printDice();
 
+        player.increase();
+
     }
 }
 //i write copy paste
