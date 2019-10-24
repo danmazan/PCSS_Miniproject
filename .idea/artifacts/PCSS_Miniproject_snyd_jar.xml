@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PCSS_Miniproject_snyd:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PCSS_Miniproject_snyd_jar</output-path>
+    <root id="archive" name="PCSS_Miniproject_snyd.jar">
+      <element id="module-output" name="PCSS_Miniproject_snyd" />
+    </root>
+  </artifact>
+</component>

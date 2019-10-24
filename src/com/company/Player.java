@@ -1,9 +1,18 @@
 package com.company;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 
 public class Player extends Dice {
+
     Scanner keyboard = new Scanner(System.in);
     public String name;
     boolean viborg = false;
@@ -12,20 +21,21 @@ public class Player extends Dice {
     int betNumber = 0;
 
     //constructor
-    public Player(String name){
-        this.name = name;
+    public Player(){
+        //this.name = name;
         myDice.add(new Dice());
         myDice.add(new Dice());
         myDice.add(new Dice());
         myDice.add(new Dice());
-
     }
 
     public void shuffle(){
         for (int i=0; i<myDice.size(); i++){
             myDice.get(i).roll();
+
+            }
         }
-    }
+
 
     public void printDice(){
         System.out.println("Your dice: ");
