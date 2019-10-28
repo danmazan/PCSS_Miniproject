@@ -48,7 +48,6 @@ public class Client {
                             scan.close();
                         }
                         if (initiate.equalsIgnoreCase("ready")) {
-                            connectToServer.close();
                             connect = false;
                             scan.close();
                         }
