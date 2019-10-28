@@ -11,7 +11,7 @@ public class Client {
     DataOutputStream toServer = null;
 
     public static void main(String[] args) {
-
+        /* THIS IS A LOBBY EVA*/
 
         Scanner scan = new Scanner(System.in);  // Create a Scanner object        //Get input from user.
 
@@ -34,7 +34,31 @@ public class Client {
 
 
             System.out.println("Write 'ready' to initiate your game or 'quit' to leave the lobby. ");
-            /* LOBBY GOES HERE ALEX */
+            Thread lobby = new Thread(() -> {
+                boolean connect = true;
+                while (connect) {
+                    try {
+                        String initiate = scan.nextLine();
+                        osToServer.writeUTF(initiate);
+                        osToServer.flush();
+
+                        if (initiate.equalsIgnoreCase("quit")) {
+                            connectToServer.close();
+                            connect = false;
+                            scan.close();
+                        }
+                        if (initiate.equalsIgnoreCase("ready")) {
+                            connectToServer.close();
+                            connect = false;
+                            scan.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            lobby.start();
+
 
             //THREAD FOR FLOW OF THE GAME
             Thread read = new Thread(() -> {
