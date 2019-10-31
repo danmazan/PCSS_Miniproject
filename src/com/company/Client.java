@@ -1,23 +1,43 @@
 package com.company;
 
-import sun.plugin2.message.Message;
-
+import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
-public class Client {
+import static com.sun.glass.ui.Cursor.setVisible;
+import static com.sun.javafx.fxml.expression.Expression.add;
+
+
+public class Client extends JFrame {
+
+    //Create a simple UI
+
+
     DataOutputStream toServer = null;
+    private JTextArea jta = new JTextArea();
+    public static void main(String[] args) {new Client();
+    }
 
-    public static void main(String[] args) {
+
+    public Client() {
+        setLayout(new BorderLayout());
+        add(new JScrollPane(jta), BorderLayout.CENTER);
+        setTitle("Snyd");
+        setSize(500, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
+
         /* THIS IS A LOBBY EVA*/
-
         Scanner scan = new Scanner(System.in);  // Create a Scanner object        //Get input from user.
 
         try {
+
             // Create a socket to connect to the server
             Socket connectToServer = new Socket("localhost", 8000);
             //Socket connectToServer = new Socket("130.254.204.36", 8000);
@@ -28,27 +48,31 @@ public class Client {
             DataOutputStream osToServer = new DataOutputStream(connectToServer.getOutputStream());
 
             //Ask user to input their name
-            System.out.println("Enter name");
-            String name = scan.nextLine(); //set "name" value to the next value inputted
+            //jta.append("Enter name" + '\n');
+            String name = JOptionPane.showInputDialog("Enter name"); //set "name" value to the next value inputted
             osToServer.writeUTF(name);
             osToServer.flush(); // send the message
             //osToServer.close(); // close the output stream when we're done.
 
-
-            System.out.println("Write 'ready' to initiate your game.");
+            //Create a confirmation box. 0 = Yes, 2 = cancel
+            int initiate = JOptionPane.showConfirmDialog(null, "Ok to start game, cancel to quit program.", "Snyd",
+                    JOptionPane.OK_CANCEL_OPTION);
             Thread lobby = new Thread(() -> {
                 boolean connect = true;
                 while (connect) {
-                    try {
-                        String initiate = scan.nextLine();
-                        osToServer.writeUTF(initiate);
-                        osToServer.flush();
-                        if (initiate.equalsIgnoreCase("ready")) {
-                            connect = false;
-                            scan.close();
+                    if (initiate == 0){
+                        try {
+                            osToServer.writeInt(initiate);
+                            osToServer.flush();
+                                connect = false;
+                                scan.close();
+                                jta.append("Game started");
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        }
+                    if (initiate == 2){
+                        System.exit(0);
                     }
                 }
             });
@@ -61,18 +85,18 @@ public class Client {
                 while (connect) {
                     try {
                         String message = isFromServer.readUTF();
-                        System.out.println(message);
+                        jta.append(message);
                         if (message.equalsIgnoreCase("Game started")) {
                             connect = false;
                         }
                     } catch (IOException e) {
-                        System.out.println(e + "SocketException expected");
+                        jta.append(e + "SocketException expected");
                         break;
                     }
                 }
 
                 boolean game = true;
-                while (game || !connect) {
+                while (game) {
                     boolean turn = false;
                     int numOfPlayers = 0;
                     try {
@@ -89,7 +113,7 @@ public class Client {
                         try {
                             turn = isFromServer.readBoolean();
                             if (turn) {
-                                System.out.println(isFromServer.readUTF());
+                                jta.append(isFromServer.readUTF());
 
                                 boolean correctCommand = false;
                                 do {
@@ -108,8 +132,8 @@ public class Client {
                                     }
                                 } while (!correctCommand);
                             } else {
-                                System.out.println(isFromServer.readUTF());
-                                System.out.println(isFromServer.readUTF());
+                                jta.append(isFromServer.readUTF());
+                                jta.append(isFromServer.readUTF());
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -120,10 +144,10 @@ public class Client {
                     // END OF THE GAME RESULTED HERE\
                     try {
                         //end the game?
-                        System.out.println(isFromServer.readUTF());
+                        jta.append(isFromServer.readUTF());
                         for (int i = 0; i < numOfPlayers; i++) {
                             String temp = isFromServer.readUTF();
-                            System.out.println(temp);
+                            jta.append(temp);
                             if (temp.equalsIgnoreCase("Type 'ready' to continue or anything else to quit")) {
                                 String ready = scan.nextLine();
                                 osToServer.writeUTF(ready);
@@ -146,7 +170,6 @@ public class Client {
         }
     }
 }
-
       /*  player.shuffle();
         System.out.println("printing 4 dice values");
         player.printDice();
