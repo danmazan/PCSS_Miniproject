@@ -1,5 +1,7 @@
 package com.company;
 
+import sun.plugin2.message.Message;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -33,7 +35,7 @@ public class Client {
             //osToServer.close(); // close the output stream when we're done.
 
 
-            System.out.println("Write 'ready' to initiate your game or 'quit' to leave the lobby. ");
+            System.out.println("Write 'ready' to initiate your game.");
             Thread lobby = new Thread(() -> {
                 boolean connect = true;
                 while (connect) {
@@ -41,12 +43,6 @@ public class Client {
                         String initiate = scan.nextLine();
                         osToServer.writeUTF(initiate);
                         osToServer.flush();
-
-                        if (initiate.equalsIgnoreCase("quit")) {
-                            connectToServer.close();
-                            connect = false;
-                            scan.close();
-                        }
                         if (initiate.equalsIgnoreCase("ready")) {
                             connect = false;
                             scan.close();
@@ -76,7 +72,7 @@ public class Client {
                 }
 
                 boolean game = true;
-                while (game) {
+                while (game || !connect) {
                     boolean turn = false;
                     int numOfPlayers = 0;
                     try {
