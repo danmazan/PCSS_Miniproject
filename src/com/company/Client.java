@@ -64,9 +64,8 @@ public class Client extends JFrame {
                         try {
                             osToServer.writeInt(initiate);
                             osToServer.flush();
-                                connect = false;
                                 scan.close();
-                                jta.append("Game started");
+                                connect = false;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -76,27 +75,15 @@ public class Client extends JFrame {
                     }
                 }
             });
-            lobby.start();
+           // lobby.start();
 
 
             //THREAD FOR FLOW OF THE GAME
             Thread read = new Thread(() -> {
-                boolean connect = true;
-                while (connect) {
-                    try {
-                        String message = isFromServer.readUTF();
-                        jta.append(message);
-                        if (message.equalsIgnoreCase("Game started")) {
-                            connect = false;
-                        }
-                    } catch (IOException e) {
-                        jta.append(e + "SocketException expected");
-                        break;
-                    }
-                }
-
                 boolean game = true;
                 while (game) {
+                    System.out.println("game started");
+                    jta.append("Game started");
                     boolean turn = false;
                     int numOfPlayers = 0;
                     try {
