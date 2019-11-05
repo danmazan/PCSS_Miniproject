@@ -9,15 +9,11 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
 
-import static com.sun.glass.ui.Cursor.setVisible;
-import static com.sun.javafx.fxml.expression.Expression.add;
 
 
 public class Client extends JFrame {
 
     //Create a simple UI
-
-
     DataOutputStream toServer = null;
     private JTextArea jta = new JTextArea();
     public static void main(String[] args) {new Client();
@@ -62,15 +58,26 @@ public class Client extends JFrame {
                 while (connect) {
                     if (initiate == 0){
                         try {
-                            osToServer.writeInt(initiate);
+                            osToServer.writeUTF("ready");
                             osToServer.flush();
-                                scan.close();
-                                connect = false;
+                            scan.close();
+                            String game = isFromServer.readUTF();
+                            System.out.println("connect");
+                            jta.append(game + '\n');
+                            connect = false;
+
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         }
                     if (initiate == 2){
+                        try {
+                            osToServer.writeUTF("quit");
+                            osToServer.flush();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                         System.exit(0);
                     }
                 }
@@ -80,10 +87,28 @@ public class Client extends JFrame {
 
             //THREAD FOR FLOW OF THE GAME
             Thread read = new Thread(() -> {
+                boolean connect = true;
+                while (connect) {
+
+                    try {
+                        String message = isFromServer.readUTF();
+                        jta.append(message + '\n');
+                        if (message.equalsIgnoreCase("Game started")) {
+                            System.out.println("Second thread");
+                            System.out.println("Exit if statement");
+                            connect = false;
+                        }
+
+                    } catch (IOException e) {
+                        System.out.println(e + "SocketException expected");
+                        break;
+                    }
+                }
+
+
                 boolean game = true;
                 while (game) {
-                    System.out.println("game started");
-                    jta.append("Game started");
+                    System.out.println("game loop");
                     boolean turn = false;
                     int numOfPlayers = 0;
                     try {
@@ -96,7 +121,6 @@ public class Client extends JFrame {
                     // - SERVE NEW DICE
 
                     for (int i = 0; i < numOfPlayers; i++) {
-
                         try {
                             turn = isFromServer.readBoolean();
                             if (turn) {
