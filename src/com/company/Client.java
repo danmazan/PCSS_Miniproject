@@ -61,9 +61,7 @@ public class Client extends JFrame {
                             osToServer.writeUTF("ready");
                             osToServer.flush();
                             scan.close();
-                            String game = isFromServer.readUTF();
-                            System.out.println("connect");
-                            jta.append(game + '\n');
+                            System.out.println("connect loop");
                             connect = false;
 
 
@@ -82,19 +80,18 @@ public class Client extends JFrame {
                     }
                 }
             });
-           // lobby.start();
+           lobby.start();
 
 
             //THREAD FOR FLOW OF THE GAME
             Thread read = new Thread(() -> {
+                System.out.println("read thread");
                 boolean connect = true;
                 while (connect) {
-
                     try {
                         String message = isFromServer.readUTF();
                         jta.append(message + '\n');
                         if (message.equalsIgnoreCase("Game started")) {
-                            System.out.println("Second thread");
                             System.out.println("Exit if statement");
                             connect = false;
                         }
@@ -121,6 +118,7 @@ public class Client extends JFrame {
                     // - SERVE NEW DICE
 
                     for (int i = 0; i < numOfPlayers; i++) {
+                        System.out.println("Game started");
                         try {
                             turn = isFromServer.readBoolean();
                             if (turn) {
