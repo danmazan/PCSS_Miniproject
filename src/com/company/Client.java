@@ -10,8 +10,49 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
+public class Client implements Runnable {
+    @Override
+        public void run(){
+            try {
+                Socket s = new Socket("local host", 8000);
+                System.out.println("Connected to server");
 
-public class Client extends JFrame {
+                DataInputStream inputStream = new DataInputStream(s.getInputStream());
+                DataOutputStream outputStream = new DataOutputStream(s.getOutputStream());
+                System.out.println("Data streams established");
+                boolean connect = true;
+                while(connect){
+                    outputStream.writeUTF("Horsedick Simon");
+                    outputStream.flush();
+
+
+
+
+                }
+            }catch (IOException e){
+                System.out.println("ex");
+            }
+
+
+
+
+    }
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+/*public class Client extends JFrame {
 
     //Create a simple UI
     DataOutputStream toServer = null;
@@ -29,7 +70,7 @@ public class Client extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        /* THIS IS A LOBBY EVA*/
+
         Scanner scan = new Scanner(System.in);  // Create a Scanner object        //Get input from user.
 
         try {
@@ -179,7 +220,7 @@ public class Client extends JFrame {
         }
     }
 }
-      /*  player.shuffle();
+        player.shuffle();
         System.out.println("printing 4 dice values");
         player.printDice();
         System.out.println("now player loose a die");
