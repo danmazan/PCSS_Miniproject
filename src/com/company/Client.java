@@ -1,5 +1,7 @@
 package com.company;
 
+import javafx.application.Application;
+
 import javax.swing.JOptionPane;
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +12,12 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
-public class Client implements Runnable {
-    @Override
-        public void run(){
+public class Client {
+    Scanner scanner = new Scanner(System.in);
+
+
+    public static void main(String[] args) {
+
             try {
                 Socket s = new Socket("local host", 8000);
                 System.out.println("Connected to server");
@@ -21,28 +26,16 @@ public class Client implements Runnable {
                 DataOutputStream outputStream = new DataOutputStream(s.getOutputStream());
                 System.out.println("Data streams established");
                 boolean connect = true;
-                while(connect){
+                while (connect) {
                     outputStream.writeUTF("Horsedick Simon");
                     outputStream.flush();
 
 
-
-
                 }
-            }catch (IOException e){
+            } catch (IOException e) {
                 System.out.println("ex");
             }
-
-
-
-
     }
-
-
-
-
-
-
 }
 
 
