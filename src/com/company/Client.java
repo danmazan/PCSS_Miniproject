@@ -48,10 +48,9 @@ public class Client {
                     }
                     //while game loop in session.java
                     do {
-
+                        System.out.println("we enter while game loop");
                         //receiving turn order messages
-                        String turnMes = inputStream.readUTF();
-                        System.out.println(turnMes);
+
 
                         boolean correctAction = false;
                         //players turn action items
@@ -59,6 +58,7 @@ public class Client {
                             //if you are this player
                             boolean yourTurn = inputStream.readBoolean();
                             if (yourTurn) {
+                                System.out.println("It is your turn");
                                 System.out.println("You can use commands: print dice, increase, lift");
                                 String action = keyboard.nextLine();
                                 outputStream.writeUTF(action);
@@ -70,32 +70,35 @@ public class Client {
                                 }
 
                                 if (action.equalsIgnoreCase("increase")) {
-                           /* do {
-                                // receiving enter amount message
-                                turnMes = inputStream.readUTF();
-                                System.out.println(turnMes);
-                                // sending amount
-                                int amount = keyboard.nextInt();
-                                outputStream.writeInt(amount);
-                                //receiving enter number message
-                                turnMes = inputStream.readUTF();
-                                System.out.println(turnMes);
-                                //sending number
-                                int number = keyboard.nextInt();
-                                outputStream.writeInt(number);
-                                //receiving correct/false increase message
-                                turnMes = inputStream.readUTF();
-                                System.out.println(turnMes);
+                                    System.out.println("increase command");
+                                   do {
+                                        // receiving enter amount message
+                                        String amountMes = inputStream.readUTF();
+                                        System.out.println(amountMes);
+                                        // sending amount
+                                        int amount = keyboard.nextInt();
+                                        outputStream.writeInt(amount);
+                                        //receiving enter number message
+                                        String numberMes = inputStream.readUTF();
+                                        System.out.println(numberMes);
+                                        //sending number
+                                        int number = keyboard.nextInt();
+                                        outputStream.writeInt(number);
+                                        //receiving correct/false increase message
+                                        String correctIncreaseMes = inputStream.readUTF();
+                                        System.out.println(correctIncreaseMes);
 
-                                Boolean liftMes = inputStream.readBoolean();
-                                System.out.println(liftMes);
-                                lift = liftMes;
-                            }while (lift);
-                            */
+                                        Boolean liftMes = inputStream.readBoolean();
+                                        System.out.println(liftMes);
+                                        lift = liftMes;
+                                    }while (lift);
+
                                     correctAction = true;
                                 }
 
                                 if (action.equalsIgnoreCase("lift")) {
+                                    System.out.println("lift command");
+
                                     correctAction = true;
                                     game = false;
                                     //send message for game resulting to server
@@ -103,12 +106,14 @@ public class Client {
                             }
 
                             } while (!correctAction) ;
-                            //  String nextPlayer = inputStream.readUTF();
-                            //  System.out.println(nextPlayer);
+
                     } while (game);
+                    System.out.println("we exit while game loop");
+
+                    //game result from server received here
                 }
             } catch (IOException e) {
-                System.out.println("connection lost");
+                System.out.println("connection error");
             }
     }
 }
