@@ -12,14 +12,20 @@ import java.net.Socket;
 import java.util.Scanner;
 
 
+
 public class Client {
-    Scanner scanner = new Scanner(System.in);
+
 
 
     public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
 
             try {
-                Socket s = new Socket("local host", 8000);
+
+                boolean lift = true;
+
+
+                Socket s = new Socket("localhost", 8000);
                 System.out.println("Connected to server");
 
                 DataInputStream inputStream = new DataInputStream(s.getInputStream());
@@ -27,13 +33,82 @@ public class Client {
                 System.out.println("Data streams established");
                 boolean connect = true;
                 while (connect) {
-                    outputStream.writeUTF("Horsedick Simon");
-                    outputStream.flush();
 
+                    boolean game = true;
 
+                    Double playerNum = inputStream.readDouble();
+                    if (playerNum == 1) {
+                        System.out.println("you are player 1");
+                    }
+                    if (playerNum == 2) {
+                        System.out.println("you are player 2");
+                    }
+                    if (playerNum == 3) {
+                        System.out.println("you are player 3");
+                    }
+                    //while game loop in session.java
+                    do {
+
+                        //receiving turn order messages
+                        String turnMes = inputStream.readUTF();
+                        System.out.println(turnMes);
+
+                        boolean correctAction = false;
+                        //players turn action items
+                        do {
+                            //if you are this player
+                            boolean yourTurn = inputStream.readBoolean();
+                            if (yourTurn) {
+                                System.out.println("You can use commands: print dice, increase, lift");
+                                String action = keyboard.nextLine();
+                                outputStream.writeUTF(action);
+                                outputStream.flush();
+
+                                if (action.equalsIgnoreCase("print dice")) {
+                                    System.out.println("print dice command");
+                                    correctAction = true;
+                                }
+
+                                if (action.equalsIgnoreCase("increase")) {
+                           /* do {
+                                // receiving enter amount message
+                                turnMes = inputStream.readUTF();
+                                System.out.println(turnMes);
+                                // sending amount
+                                int amount = keyboard.nextInt();
+                                outputStream.writeInt(amount);
+                                //receiving enter number message
+                                turnMes = inputStream.readUTF();
+                                System.out.println(turnMes);
+                                //sending number
+                                int number = keyboard.nextInt();
+                                outputStream.writeInt(number);
+                                //receiving correct/false increase message
+                                turnMes = inputStream.readUTF();
+                                System.out.println(turnMes);
+
+                                Boolean liftMes = inputStream.readBoolean();
+                                System.out.println(liftMes);
+                                lift = liftMes;
+                            }while (lift);
+                            */
+                                    correctAction = true;
+                                }
+
+                                if (action.equalsIgnoreCase("lift")) {
+                                    correctAction = true;
+                                    game = false;
+                                    //send message for game resulting to server
+                                }
+                            }
+
+                            } while (!correctAction) ;
+                            //  String nextPlayer = inputStream.readUTF();
+                            //  System.out.println(nextPlayer);
+                    } while (game);
                 }
             } catch (IOException e) {
-                System.out.println("ex");
+                System.out.println("connection lost");
             }
     }
 }
