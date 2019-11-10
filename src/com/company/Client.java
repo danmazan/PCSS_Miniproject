@@ -1,15 +1,9 @@
 package com.company;
 
-import javafx.application.Application;
-
-import javax.swing.JOptionPane;
-import javax.swing.*;
-import java.awt.*;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
