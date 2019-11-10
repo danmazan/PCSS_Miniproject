@@ -47,7 +47,7 @@ public class Client {
                     if (playerNum == 3) {
                         System.out.println("you are player 3");
                     }
-
+                    //showing dice to user
                     System.out.println("Your dice:");
                     for (int i = 0; i < 4; i++){
                         int dice = inputStream.readInt();
@@ -64,6 +64,10 @@ public class Client {
                         boolean correctAction = false;
                         //players turn action items
                         do {
+                            //if you are this player
+                            //do loop here ???
+                            String gameStatus = inputStream.readUTF();
+                            System.out.println(gameStatus);
                             //if you are this player
                             boolean yourTurn = inputStream.readBoolean();
 
