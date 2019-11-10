@@ -1,5 +1,5 @@
 # PCSS_Miniproject_snyd
-This repository contians the client applications for the PCSS mini project. (For the server side please go here; https://github.com/no-u-no-u/PCSS_Miniproject_snyd_server) In this repositiry, one can find all things related to it. Sch as the source code. Additional info about scrum and a class diagram can be found underneath the "Wiki".
+This repository contians the client applications for the PCSS mini project. (For the server side please go here; https://github.com/no-u-no-u/PCSS_Miniproject_snyd_server) In this repositiry, one can find all things related to it. Such as the source code. Additional info about scrum and a class diagram can be found underneath the "Wiki".
 
 For this project we have created a online version of a dice game.
 
