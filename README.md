@@ -14,3 +14,5 @@ If the second player does not believe the previous player he can lift and a loos
 Second player then has two options, if the player believe player1 is correct he must then increase the "bet" either by raising the amount of dice or increasing the amount on the dice.
 
 The game then continous untill someone lifts.
+
+To run the game on the same computer click Run->Edit Configurations. For the file requiring multiple instances, click on Allow parallel run. You can do this for multiple files. Click on Apply.
