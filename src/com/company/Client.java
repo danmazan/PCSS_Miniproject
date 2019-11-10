@@ -60,26 +60,19 @@ public class Client {
 
                         //while game loop in session.java
                         do {
-                            //receiving turn order messages
 
                             boolean correctAction = false;
                             //players turn action items
-                            //if you are this player
-
                             do {
-                                System.out.println("waiting for game status");
                                 String gameStatus = inputStream.readUTF();
                                 System.out.println("game status: " + gameStatus);
 
-
-                                //if you are this player
-                                System.out.println("waiting for your turn");
+                                //receiving turn order messages
                                 Double yourTurn = inputStream.readDouble();
-                                System.out.println("your turn: " + yourTurn);
 
                                 if (yourTurn == 1) {
                                     System.out.println("It is your turn");
-                                    System.out.println("You can use commands:increase, lift");
+                                    System.out.println("You can use commands: increase | lift | quit ");
                                     boolean correctCommand = false;
                                     do {
                                         String action = keyboard.nextLine();
@@ -100,11 +93,9 @@ public class Client {
                                                 outputStream.writeInt(number);
                                                 //receiving correct/false increase message
                                                 String correctIncreaseMes = inputStream.readUTF();
-                                                System.out.println("correct increase: " + correctIncreaseMes);
+                                                System.out.println(correctIncreaseMes);
 
-                                                Boolean liftMes = inputStream.readBoolean();
-                                                System.out.println(liftMes);
-                                                lift = liftMes;
+                                                lift = inputStream.readBoolean();
 
                                             } while (lift);
 
@@ -115,7 +106,6 @@ public class Client {
                                             correctCommand = true;
                                             correctAction = true;
                                             game = false;
-                                            //send message for game resulting to server®
                                         }
                                         if(action.equalsIgnoreCase("quit")){
                                             correctCommand = true;
@@ -125,7 +115,7 @@ public class Client {
                                             connect = false;
                                         }
                                         else {
-                                            System.out.println("\n incorrect command");
+                                            System.out.println("\nnew command");
                                         }
                                     } while (!correctCommand);
                                 }
@@ -133,19 +123,19 @@ public class Client {
                                     System.out.println("wait for your turn");
                                 }
                                 if (yourTurn == 2) {
-                                    System.out.println("we execute if your turn 2");
+                                    System.out.println("Game result: ");
                                     correctAction = true;
                                     game = false;
                                 }
 
                             } while (!correctAction);
                         } while (game);
-                        System.out.println("we exit while game loop");
+
                         //game result from server received here
                         String winner = inputStream.readUTF();
                         System.out.println(winner);
-                        //////NEW GAME LOOP ? ////////
-                        System.out.println("\n next round");
+                        System.out.println("This game has ended");
+                        System.out.println("\nNEXT ROUND");
                     }while (!newGame);
                 }
             } catch (IOException e) {
