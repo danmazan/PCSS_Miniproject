@@ -1,5 +1,5 @@
 # PCSS_Miniproject_snyd
-Miniproject for programming of complex software system
+This repository contians the client applications for the PCSS mini project. (For the server side please go here; https://github.com/no-u-no-u/PCSS_Miniproject_snyd_server) In this repositiry, one can find all things related to it. Sch as the source code. Additional info about scrum and a class diagram can be found underneath the "Wiki".
 
 For this project we have created a online version of a dice game.
 
@@ -15,4 +15,5 @@ Second player then has two options, if the player believe player1 is correct he 
 
 The game then continous untill someone lifts.
 
+To run the application; First download the client as zip from Github. Unzip it in ones desired location. Next download Intellij (https://www.jetbrains.com/idea/nextversion/), Click open project, locate the directionary for where you placed your unzipped folder. locate the "Client.java"
 To run the game on the same computer click Run->Edit Configurations. For the file requiring multiple instances, click on Allow parallel run. You can do this for multiple files. Click on Apply.
