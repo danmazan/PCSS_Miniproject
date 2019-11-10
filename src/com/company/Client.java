@@ -9,6 +9,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
@@ -46,10 +47,18 @@ public class Client {
                     if (playerNum == 3) {
                         System.out.println("you are player 3");
                     }
+
+                    System.out.println("Your dice:");
+                    for (int i = 0; i < 4; i++){
+                        int dice = inputStream.readInt();
+                        System.out.println(dice);
+                    }
+
                     //while game loop in session.java
                     do {
                         System.out.println("we enter while game loop");
                         //receiving turn order messages
+
 
 
                         boolean correctAction = false;
@@ -57,17 +66,14 @@ public class Client {
                         do {
                             //if you are this player
                             boolean yourTurn = inputStream.readBoolean();
+
                             if (yourTurn) {
                                 System.out.println("It is your turn");
-                                System.out.println("You can use commands: print dice, increase, lift");
+                                System.out.println("You can use commands:increase, lift");
                                 String action = keyboard.nextLine();
                                 outputStream.writeUTF(action);
                                 outputStream.flush();
 
-                                if (action.equalsIgnoreCase("print dice")) {
-                                    System.out.println("print dice command");
-                                    correctAction = true;
-                                }
 
                                 if (action.equalsIgnoreCase("increase")) {
                                     System.out.println("increase command");
@@ -103,12 +109,17 @@ public class Client {
                                     game = false;
                                     //send message for game resulting to server
                                 }
+                            }else{
+                                System.out.println("wait for your turn");
                             }
 
                             } while (!correctAction) ;
 
                     } while (game);
                     System.out.println("we exit while game loop");
+
+                        String whoLifted = inputStream.readUTF();
+                        System.out.println(whoLifted);
 
                     //game result from server received here
                 }
